@@ -61,7 +61,7 @@ void FAST_FUNC rtc_read_tm(struct tm *ptm, int fd)
 
 time_t FAST_FUNC rtc_tm2time(struct tm *ptm, int utc)
 {
-	char *oldtz = NULL;
+	char *oldtz = oldtz; /* for compiler */
 	time_t t;
 
 	if (utc) {

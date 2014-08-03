@@ -2611,8 +2611,7 @@ write_table(void)
 static void
 print_buffer(char *pbuffer)
 {
-	unsigned i;
-	int l;
+	int i,l;
 
 	for (i = 0, l = 0; i < sector_size; i++, l++) {
 		if (l == 0)

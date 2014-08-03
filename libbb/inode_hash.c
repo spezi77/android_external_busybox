@@ -71,7 +71,7 @@ void FAST_FUNC add_to_ino_dev_hashtable(const struct stat *statbuf, const char *
 /* Clear statbuf hash table */
 void FAST_FUNC reset_ino_dev_hashtable(void)
 {
-	unsigned i;
+	int i;
 	ino_dev_hashtable_bucket_t *bucket;
 
 	for (i = 0; ino_dev_hashtable && i < HASH_SIZE; i++) {
