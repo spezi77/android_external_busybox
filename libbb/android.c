@@ -17,6 +17,16 @@ int clearenv()
 	return 0;
 }
 
+/* bionic/stubs.c:ttyname not implemented anyway */
+int ttyname_r(int fd, char *name, size_t namesize)
+{
+	char *t = ttyname(fd);
+	if (!t)
+		return -1;
+	strncpy(name, ttyname(fd), namesize);
+	return 0;
+}
+
 /* no /etc/shells anyway */
 char *getusershell() { return NULL; }
 void setusershell() {}
@@ -66,13 +76,13 @@ int addmntent(FILE *fp UNUSED_PARAM, const struct mntent *mnt UNUSED_PARAM)
 	return 1;
 }
 
-char *hasmntopt(const struct mntent *mnt, const char *opt)
+const char *hasmntopt(const struct mntent *mnt, const char *opt)
 {
-	char *o = mnt->mnt_opts;
+	const char *o = mnt->mnt_opts;
 	size_t l = strlen(opt);
 
-	while ((o = strstr(o, opt)) &&
-			((o > mnt->mnt_opts && o[-1] != ',') ||
+	while ((o = strstr(o, opt)) && 
+			((o > mnt->mnt_opts && o[-1] != ',') || 
 			 (o[l] != 0 && o[l] != ',' && o[l] != '=')));
 	return o;
 }
